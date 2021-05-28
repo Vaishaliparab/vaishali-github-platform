@@ -1,0 +1,44 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data.SqlClient;
+using System.IO;
+
+namespace CompnayMaster1
+{
+    public partial class companymaster12 : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+           
+            string constring = "Data Source=DESKTOP-B06F2IM\\sqlexpress;Initial Catalog=companymaster;Integrated Security=True;Pooling=False";
+          
+            SqlConnection sqlcon = new SqlConnection(constring);
+            
+            FileUpload1.SaveAs(Server.MapPath("~/compfile/") + Path.GetFileName(FileUpload1.FileName));
+            String link = "compfile/" + Path.GetFileName(FileUpload1.FileName);
+
+            String query = " insert into FileMater(id, File name,CompanyId(" + TextBox1 + ", '" + link + "', " + TextBox2 + ")";
+            SqlCommand cmd = new SqlCommand(query, sqlcon);
+            sqlcon.Open();
+
+        
+             
+             sqlcon.Close();
+             
+
+            TextBox1.Text = "";
+            TextBox2.Text = "";
+                 
+               
+        }
+    }
+}
